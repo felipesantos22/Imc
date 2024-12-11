@@ -10,6 +10,7 @@ import SwiftData
 
 struct ImcView: View {
     
+    @Environment(\.modelContext) private var modelContext
     @StateObject private var viewModel = ImcViewModel()
     
     var body: some View {
@@ -17,6 +18,7 @@ struct ImcView: View {
             VStack {
                 Label("IMC", systemImage: "person.crop.circle")
                     .font(.title)
+                    .fontWeight(.bold)
                     .foregroundStyle(.black)
                     .padding(.top, 10)
                 Text("Peso")
@@ -36,7 +38,7 @@ struct ImcView: View {
                     .padding(.horizontal)
                 
                 Button(action: {
-                    viewModel.calculateIMC()  // Chama a função corretamente sem o $
+                    viewModel.calculateIMC(modelContext: modelContext)
                 }) {
                     Text("Calcular IMC")
                         .frame(maxWidth: .infinity)
@@ -47,7 +49,16 @@ struct ImcView: View {
                         .padding(.top, 20)
                 }
                 .padding(10)
-                Text("IMC: \(viewModel.imcResult)").bold()// Use a variável diretamente
+                Text("IMC: \(viewModel.imcResult)").bold()
+                    .padding()
+                NavigationLink(destination: HistoryView()) {
+                    Text("Resultados")
+                        .padding()
+                        .background(Color.red)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                }
+                .padding()
             }
         }
         .padding()

@@ -9,15 +9,18 @@ import SwiftUI
 import SwiftData
 
 @Model
-class Imc {
-    @Attribute(.unique) var id: UUID = UUID()
+class Imc: Identifiable {
+    var id: UUID
     var weight: Double
     var height: Double
+    var result: Double
     var date: Date
-    
-    init (weight: Double, height: Double, date: Date = Date()) {
+
+    init(weight: Double, height: Double, result: Double, date: Date = Date()) {
+        self.id = UUID()
         self.weight = weight
         self.height = height
+        self.result = result
         self.date = date
     }
 }
