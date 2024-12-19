@@ -54,7 +54,7 @@ struct ImcView: View {
                 NavigationLink(destination: HistoryView()) {
                     Text("Resultados")
                         .padding()
-                        .background(Color.red)
+                        .background(Color.blue)
                         .foregroundColor(.black)
                         .cornerRadius(10)
                 }
@@ -65,4 +65,7 @@ struct ImcView: View {
     }
 }
 
+#Preview {
+    ImcView()
+}
 
