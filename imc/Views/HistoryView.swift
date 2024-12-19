@@ -10,7 +10,9 @@ import SwiftData
 
 struct HistoryView: View {
     
-    @Query(sort: \Imc.id, order: .forward) private var results: [Imc]
+    @Query(sort: \Imc.date, order: .forward) private var results: [Imc]
+    @StateObject private var viewModel = ImcViewModel()
+    @Environment(\.modelContext) private var context
 
     var body: some View {
         VStack {
@@ -39,6 +41,11 @@ struct HistoryView: View {
                         Text("Data: \(result.date, style: .date)")
                             .font(.subheadline)
                             .foregroundColor(.gray)
+                        Button(action: {
+                            viewModel.clearResult(result: result, context: context)
+                        }){
+                            Text("Excluir").foregroundColor(.red)
+                        }
                     }
                     .padding()
                 }
@@ -47,4 +54,5 @@ struct HistoryView: View {
         .padding()
     }
 }
+
 

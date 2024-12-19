@@ -10,6 +10,9 @@ import SwiftUI
 
 class ImcViewModel: ObservableObject {
     
+    @Published var operations: [Imc] = []
+    @Environment(\.modelContext) private var context
+    
     @Published var weightValue: String = ""
     @Published var heightValue: String = ""
     @Published var imcResult: String = ""
@@ -35,7 +38,11 @@ class ImcViewModel: ObservableObject {
         } catch {
             print("Erro ao salvar o IMC: \(error)")
         }
-        
+    }
+    
+    func clearResult(result: Imc, context: ModelContext) {
+        context.delete(result)
+        try? context.save()
     }
 }
 
